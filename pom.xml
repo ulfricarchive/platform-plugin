@@ -16,7 +16,7 @@
 	<name>Platform</name>
 
 	<properties>
-		<requiredCodeCoverage>0.80</requiredCodeCoverage>
+		<requiredCodeCoverage>0.00</requiredCodeCoverage>
 	</properties>
 
 	<build>
