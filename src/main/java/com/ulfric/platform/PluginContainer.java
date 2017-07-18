@@ -1,9 +1,11 @@
 package com.ulfric.platform;
 
 import com.ulfric.dragoon.application.Container;
+import com.ulfric.dragoon.extension.loader.Loader;
 
 import java.util.Objects;
 
+@Loader
 public class PluginContainer extends Container {
 
 	private Plugin plugin;
