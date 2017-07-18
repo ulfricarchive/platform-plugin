@@ -30,6 +30,16 @@ public abstract class Plugin extends JavaPlugin implements Extensible<Class<? ex
 		throw new IllegalStateException("Plugin could not be injected from: " + Arrays.toString(parameters));
 	}
 
+	public static Plugin getProvidingPlugin(Class<?> type) {
+		JavaPlugin plugin = JavaPlugin.getProvidingPlugin(type);
+		return plugin instanceof Plugin ? (Plugin) plugin : null;
+	}
+
+	public static <T extends Plugin> T getPluginInstance(Class<T> type) {
+		JavaPlugin plugin = JavaPlugin.getPlugin(type);
+		return type.isInstance(plugin) ? type.cast(plugin) : null;
+	}
+
 	private final Container container;
 
 	public Plugin() {
