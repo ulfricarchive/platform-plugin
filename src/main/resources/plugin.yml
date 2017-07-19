@@ -1,0 +1,4 @@
+name: Platform
+main: com.ulfric.platform.Platform
+version: 1.0.0
+load: STARTUP
