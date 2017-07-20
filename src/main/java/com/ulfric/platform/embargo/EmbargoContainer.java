@@ -1,7 +1,7 @@
 package com.ulfric.platform.embargo;
 
-import com.ulfric.data.database.Store;
 import com.ulfric.data.database.Database;
+import com.ulfric.data.database.Store;
 import com.ulfric.dragoon.application.Container;
 
 public class EmbargoContainer extends Container {

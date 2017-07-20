@@ -6,8 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ulfric.andrew.Registry;
 import com.ulfric.data.config.SettingsExtension;
-import com.ulfric.data.database.Store;
 import com.ulfric.data.database.DatabaseExtension;
+import com.ulfric.data.database.Store;
 import com.ulfric.dragoon.ObjectFactory;
 import com.ulfric.dragoon.application.Feature;
 import com.ulfric.platform.andrew.CommandFeature;
