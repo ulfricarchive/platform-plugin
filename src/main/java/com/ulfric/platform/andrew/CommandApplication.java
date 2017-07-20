@@ -7,6 +7,8 @@ import com.ulfric.dragoon.application.Application;
 import com.ulfric.dragoon.extension.inject.Inject;
 import com.ulfric.dragoon.reflect.Classes;
 
+import java.util.Objects;
+
 public class CommandApplication extends Application {
 
 	private final Command command;
@@ -15,6 +17,8 @@ public class CommandApplication extends Application {
 	private Registry registry;
 
 	public CommandApplication(Command command) {
+		Objects.requireNonNull(command, "command");
+
 		@SuppressWarnings("unchecked")
 		Class<? extends Command> commandType = (Class<? extends Command>) Classes.getNonDynamic(command.getClass());
 		this.command = Invoker.of(commandType);

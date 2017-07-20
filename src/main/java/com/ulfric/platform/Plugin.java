@@ -2,20 +2,53 @@ package com.ulfric.platform;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.ulfric.commons.reflect.FieldHelper;
 import com.ulfric.dragoon.ObjectFactory;
 import com.ulfric.dragoon.application.Application;
 import com.ulfric.dragoon.application.Container;
 import com.ulfric.dragoon.application.Hookable;
 import com.ulfric.dragoon.extension.Extensible;
 import com.ulfric.dragoon.value.Result;
+import com.ulfric.tryto.Try;
+
+import java.lang.reflect.Field;
 
 public abstract class Plugin extends JavaPlugin implements Extensible<Class<? extends Application>>, Hookable {
 
+	static final Class<?> LOADER_TYPE = Plugin.class.getClassLoader().getClass();
+	static final Field PLUGIN_FIELD = FieldHelper.getDeclaredField(LOADER_TYPE, "plugin")
+			.orElse(null);
+
 	static final ObjectFactory FACTORY = new ObjectFactory();
 
+	static {
+		if (PLUGIN_FIELD != null) {
+			PLUGIN_FIELD.setAccessible(true);
+		}
+	}
+
 	public static Plugin getProvidingPlugin(Class<?> type) {
-		JavaPlugin plugin = JavaPlugin.getProvidingPlugin(type);
-		return plugin instanceof Plugin ? (Plugin) plugin : null;
+		return getProvidedPlugin(type.getClassLoader());
+	}
+
+	private static Plugin getProvidedPlugin(ClassLoader loader) {
+		if (loader == null) {
+			return null;
+		}
+
+		if (PLUGIN_FIELD == null) {
+			return null;
+		}
+
+		if (LOADER_TYPE.isInstance(loader)) {
+			Object plugin = Try.toGet(() -> PLUGIN_FIELD.get(loader));
+			if (plugin instanceof Plugin) {
+				return (Plugin) plugin;
+			}
+			return null;
+		}
+
+		return getProvidedPlugin(loader.getParent());
 	}
 
 	public static <T extends Plugin> T getPluginInstance(Class<T> type) {
