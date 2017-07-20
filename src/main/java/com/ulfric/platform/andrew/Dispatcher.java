@@ -24,10 +24,12 @@ final class Dispatcher extends org.bukkit.command.Command {
 	private static final Executor EXECUTOR = Executors.newFixedThreadPool(2);
 	private static final ConcurrentMap<UUID, Context> CURRENTLY_EXECUTING = new ConcurrentHashMap<>();
 
+	private final CommandRegistry registry;
 	final Invoker command;
 
-	Dispatcher(Invoker command) {
+	Dispatcher(CommandRegistry registry, Invoker command) {
 		super(command.getName(), command.getDescription(), command.getUsage(), command.getAliases());
+		this.registry = registry;
 		this.command = command;
 	}
 
@@ -44,12 +46,12 @@ final class Dispatcher extends org.bukkit.command.Command {
 		}
 
 		Context context = new Context();
-		context.setLabel(label);
 		Map<Class<? extends Command>, List<String>> contextArgumens = new IdentityHashMap<>();
 		List<String> enteredArguments = Arrays.stream(arguments).collect(Collectors.toList()); // TODO handle "quoted arguments"
 		contextArgumens.put(Command.class, enteredArguments);
 		context.setArguments(contextArgumens);
 		context.setSender(new BukkitSender(sender));
+		context.setLabel(label);
 
 		if (command.shouldRunOnMainThread()) {
 			this.run(context);
@@ -66,9 +68,10 @@ final class Dispatcher extends org.bukkit.command.Command {
 
 	private void run(Context context) {
 		try {
-			command.run(context);
+			registry.dispatch(context);
 		} catch (CommandException thatsOk) {
-			// TODO handle
+			// TODO handle properly
+			context.getSender().sendMessage(thatsOk.getMessage());
 		} catch (Exception exception) {
 			// TODO auto report this to admins
 			exception.printStackTrace(); // TODO improve logging

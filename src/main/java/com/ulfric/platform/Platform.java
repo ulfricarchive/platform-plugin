@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ulfric.andrew.Registry;
 import com.ulfric.data.config.SettingsExtension;
-import com.ulfric.data.database.Database;
+import com.ulfric.data.database.Store;
 import com.ulfric.data.database.DatabaseExtension;
 import com.ulfric.dragoon.ObjectFactory;
 import com.ulfric.dragoon.application.Feature;
@@ -67,10 +67,10 @@ public final class Platform extends Plugin {
 	}
 
 	private void saveDatabases() {
-		List<Database> databases = Database.getDatabases();
+		List<Store> databases = Store.getDatabases();
 		log("Shutting down " + databases.size() + " databases");
 		long start = System.currentTimeMillis();
-		databases.forEach(Database::save);
+		databases.forEach(Store::save);
 		long end = System.currentTimeMillis();
 		log("Databases shut down. Took " + (end - start) + "ms");
 	}

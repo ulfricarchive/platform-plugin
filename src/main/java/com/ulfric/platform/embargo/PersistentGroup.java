@@ -1,7 +1,7 @@
 package com.ulfric.platform.embargo;
 
 import com.ulfric.data.database.Data;
-import com.ulfric.data.database.Database;
+import com.ulfric.data.database.Store;
 import com.ulfric.embargo.Allowance;
 import com.ulfric.embargo.Entity;
 import com.ulfric.embargo.Group;
@@ -19,7 +19,7 @@ public class PersistentGroup extends Group {
 		if (group instanceof PersistentGroup) {
 			return (PersistentGroup) group;
 		}
-		Database database = EmbargoContainer.getGroupsDatabase();
+		Store database = EmbargoContainer.getGroupsDatabase();
 		if (database == null) {
 			return null;
 		}

@@ -22,11 +22,11 @@ public class EmbargoListener implements Listener {
 
 	private static MethodHandle setPermissibleBase;
 
-	@Store // TODO stereotype for common permissions database annotation
-	private Database users;
+	@Database // TODO stereotype for common permissions database annotation
+	private Store users;
 
 	@EventHandler
-	void on(AsyncPlayerPreLoginEvent event) {
+	public void on(AsyncPlayerPreLoginEvent event) {
 		if (event.getLoginResult() != AsyncPlayerPreLoginEvent.Result.ALLOWED) {
 			return;
 		}
@@ -35,7 +35,7 @@ public class EmbargoListener implements Listener {
 	}
 
 	@EventHandler
-	void on(PlayerLoginEvent event) throws Throwable {
+	public void on(PlayerLoginEvent event) throws Throwable {
 		if (event.getResult() != PlayerLoginEvent.Result.ALLOWED) {
 			return;
 		}
@@ -46,8 +46,11 @@ public class EmbargoListener implements Listener {
 			return;
 		}
 		User user = getPermissionsData(player.getName(), player.getUniqueId());
+		if (user == null) {
+			return;
+		}
 		BukkitPermissible permissible = new BukkitPermissible(player, user);
-		setter.invokeExact(player, permissible);
+		setter.invokeExact((Object) player, (Object) permissible);
 	}
 
 	private void preloadPermissionsData(String name, UUID uniqueId) {

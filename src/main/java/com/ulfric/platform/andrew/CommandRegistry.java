@@ -38,7 +38,7 @@ public class CommandRegistry extends SkeletalRegistry {
 		invoker.registerWithParent();
 
 		if (invoker.isRoot()) {
-			Dispatcher dispatcher = new Dispatcher(invoker);
+			Dispatcher dispatcher = new Dispatcher(this, invoker);
 			bukkitRegistry.register(dispatcher.getName(), dispatcher);
 		}
 	}

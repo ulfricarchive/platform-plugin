@@ -1,19 +1,19 @@
 package com.ulfric.platform.embargo;
 
-import com.ulfric.data.database.Database;
 import com.ulfric.data.database.Store;
+import com.ulfric.data.database.Database;
 import com.ulfric.dragoon.application.Container;
 
 public class EmbargoContainer extends Container {
 
-	private static Database groupsDatabase;
+	private static Store groupsDatabase;
 
-	static Database getGroupsDatabase() {
+	static Store getGroupsDatabase() {
 		return groupsDatabase;
 	}
 
-	@Store
-	private Database groups;
+	@Database
+	private Store groups;
 
 	public EmbargoContainer() {
 		install(EmbargoListener.class);

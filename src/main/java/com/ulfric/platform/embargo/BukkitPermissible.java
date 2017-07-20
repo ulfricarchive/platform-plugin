@@ -9,13 +9,18 @@ import org.bukkit.plugin.Plugin;
 
 import com.ulfric.embargo.Allowance;
 
+import java.util.Objects;
 import java.util.Set;
 
 final class BukkitPermissible extends PermissibleBase {
 
 	private final com.ulfric.embargo.Entity entity;
+
 	public BukkitPermissible(ServerOperator opable, com.ulfric.embargo.Entity entity) {
 		super(opable);
+		Objects.requireNonNull(opable, "opable");
+		Objects.requireNonNull(entity, "entity");
+
 		this.entity = entity;
 	}
 
@@ -41,7 +46,17 @@ final class BukkitPermissible extends PermissibleBase {
 
 	@Override
 	public void recalculatePermissions() {
+		if (entity == null) {
+			return;
+		}
+
 		entity.recalculate();
+	}
+
+	@SuppressWarnings("sync-override")
+	@Override
+	public void clearPermissions() {
+		// TODO delete cached user
 	}
 
 	@Override
@@ -56,11 +71,6 @@ final class BukkitPermissible extends PermissibleBase {
 
 	@Override
 	public void removeAttachment(PermissionAttachment attachment) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public synchronized void clearPermissions() {
 		throw new UnsupportedOperationException();
 	}
 
