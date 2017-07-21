@@ -15,7 +15,7 @@ import com.ulfric.etruscans.placeholder.PlaceholderFeature;
 import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
 import com.ulfric.platform.listener.ListenerFeature;
-import com.ulfric.platform.service.ServicesContainer;
+import com.ulfric.platform.service.ServiceFeature;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +34,7 @@ public final class Platform extends Plugin {
 
 	private Feature command;
 	private Feature listener;
+	private Feature service;
 	private Feature placeholder;
 
 	public Platform() {
@@ -50,7 +51,6 @@ public final class Platform extends Plugin {
 		addShutdownHook(this::unregisterFeatures);
 		addShutdownHook(this::saveDatabases);
 
-		install(ServicesContainer.class);
 		install(LocaleContainer.class);
 	}
 
@@ -61,11 +61,16 @@ public final class Platform extends Plugin {
 		if (listener == null) {
 			listener = Plugin.FACTORY.request(ListenerFeature.class);
 		}
+		if (service == null) {
+			service = Plugin.FACTORY.request(ServiceFeature.class);
+		}
 		if (placeholder == null) {
 			placeholder = Plugin.FACTORY.request(PlaceholderFeature.class);
 		}
 		Feature.register(command);
 		Feature.register(listener);
+		Feature.register(service);
+		Feature.register(placeholder);
 	}
 
 	private void unregisterFeatures() {

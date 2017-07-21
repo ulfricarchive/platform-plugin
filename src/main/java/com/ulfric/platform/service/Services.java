@@ -1,55 +1,33 @@
 package com.ulfric.platform.service;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.ServicePriority;
-import org.bukkit.plugin.ServicesManager;
+import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.ServiceLoader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class Services { // TODO thread safety
 
-	public static <S> S get(Class<S> service) { // TODO cleanup method
-		ServicesManager manager = Bukkit.getServicesManager();
-		S provider = Bukkit.getServicesManager().load(service);
+	private static final Map<Class<? extends Service>, List<Service>> SERVICES = new HashMap<>();
 
-		if (provider == null) {
-			for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-				if (!plugin.isEnabled()) {
-					continue;
-				}
-
-				ServiceLoader.load(service, plugin.getClass().getClassLoader())
-					.forEach(implementation -> register(service, implementation, plugin));
-			}
-
-			provider = manager.load(service);
-
-			if (provider == null) {
-				return null;
-			}
-		}
-
-		return provider;
+	public static <S extends Service> S get(Class<S> service) { // TODO cleanup method
+		List<Service> services = SERVICES.get(service);
+		return CollectionUtils.isEmpty(services) ? null : service.cast(services.get(0));
 	}
 
-	static void load(Plugin plugin) { // TODO cleanup method
-		ClassLoader loader = plugin.getClass().getClassLoader();
-		for (Class<?> service : Bukkit.getServicesManager().getKnownServices()) {
-			ServiceLoader.load(service, loader).forEach(implementation -> register(service, implementation, plugin));
-		}
+	public static void register(Service service) {
+		Objects.requireNonNull(service, "service");
+
+		SERVICES.computeIfAbsent(service.getService(), ignore -> new ArrayList<>()) // TODO validate service type
+		.add(service); // TODO contains to prevent duplicates
 	}
 
-	private static <T> void register(Class<?> service, Object implementation, Plugin plugin) {
-		@SuppressWarnings("unchecked")
-		Class<T> useService = (Class<T>) service;
-		@SuppressWarnings("unchecked")
-		T useImplementation = (T) implementation;
+	public static void unregister(Service service) {
+		Objects.requireNonNull(service, "service");
 
-		Priority priority = implementation.getClass().getAnnotation(Priority.class);
-		ServicePriority usePriority = priority == null ? ServicePriority.Normal : priority.value();
-
-		Bukkit.getServicesManager().register(useService, useImplementation, plugin, usePriority);
+		SERVICES.values().forEach(services -> services.remove(service));
 	}
 
 	private Services() {
