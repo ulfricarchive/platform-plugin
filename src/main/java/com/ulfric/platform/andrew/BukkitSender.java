@@ -38,4 +38,9 @@ public final class BukkitSender implements Sender {
 		sender.sendMessage(message);
 	}
 
+	@Override
+	public Object handle() {
+		return sender;
+	}
+
 }

@@ -15,10 +15,6 @@
 	<version>1.0.0</version>
 	<name>Platform</name>
 
-	<properties>
-		<requiredCodeCoverage>0.00</requiredCodeCoverage>
-	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -81,6 +77,13 @@
 		<dependency>
 			<groupId>com.ulfric.embargo</groupId>
 			<artifactId>embargo</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ulfric.etruscans</groupId>
+			<artifactId>etruscans</artifactId>
 			<version>1.0.0</version>
 			<scope>compile</scope>
 		</dependency>

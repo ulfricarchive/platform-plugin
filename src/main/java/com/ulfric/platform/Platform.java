@@ -10,6 +10,8 @@ import com.ulfric.data.database.DatabaseExtension;
 import com.ulfric.data.database.Store;
 import com.ulfric.dragoon.ObjectFactory;
 import com.ulfric.dragoon.application.Feature;
+import com.ulfric.etruscans.locale.LocaleContainer;
+import com.ulfric.etruscans.placeholder.PlaceholderFeature;
 import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
 import com.ulfric.platform.embargo.EmbargoContainer;
@@ -32,6 +34,7 @@ public final class Platform extends Plugin {
 
 	private Feature command;
 	private Feature listener;
+	private Feature placeholder;
 
 	public Platform() {
 		ObjectFactory factory = Plugin.FACTORY;
@@ -47,6 +50,7 @@ public final class Platform extends Plugin {
 		addShutdownHook(this::unregisterFeatures);
 		addShutdownHook(this::saveDatabases);
 
+		install(LocaleContainer.class);
 		install(EmbargoContainer.class);
 	}
 
@@ -56,6 +60,9 @@ public final class Platform extends Plugin {
 		}
 		if (listener == null) {
 			listener = Plugin.FACTORY.request(ListenerFeature.class);
+		}
+		if (placeholder == null) {
+			placeholder = Plugin.FACTORY.request(PlaceholderFeature.class);
 		}
 		Feature.register(command);
 		Feature.register(listener);
