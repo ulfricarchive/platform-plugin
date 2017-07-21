@@ -14,8 +14,8 @@ import com.ulfric.etruscans.locale.LocaleContainer;
 import com.ulfric.etruscans.placeholder.PlaceholderFeature;
 import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
-import com.ulfric.platform.embargo.EmbargoContainer;
 import com.ulfric.platform.listener.ListenerFeature;
+import com.ulfric.platform.service.ServicesContainer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,8 +50,8 @@ public final class Platform extends Plugin {
 		addShutdownHook(this::unregisterFeatures);
 		addShutdownHook(this::saveDatabases);
 
+		install(ServicesContainer.class);
 		install(LocaleContainer.class);
-		install(EmbargoContainer.class);
 	}
 
 	private void registerFeatures() {

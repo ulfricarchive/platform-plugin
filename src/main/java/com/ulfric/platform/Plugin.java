@@ -56,11 +56,7 @@ public abstract class Plugin extends JavaPlugin implements Extensible<Class<? ex
 		return type.isInstance(plugin) ? type.cast(plugin) : null;
 	}
 
-	private final Container container;
-
-	public Plugin() {
-		container = FACTORY.request(PluginContainer.class, this);
-	}
+	private final Container container = FACTORY.request(PluginContainer.class, this);
 
 	@Override
 	public final Result install(Class<? extends Application> application) {
