@@ -21,4 +21,8 @@ public class PluginContainer extends Container {
 		return plugin.getName();
 	}
 
+	@Override
+	protected void log(String message) {
+	}
+
 }
