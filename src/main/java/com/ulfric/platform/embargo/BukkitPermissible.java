@@ -41,7 +41,7 @@ final class BukkitPermissible extends PermissibleBase {
 
 	@Override
 	public boolean hasPermission(String node) {
-		return entity.testPermission(node) == Allowance.ALLOWED;
+		return isOp() || entity.testPermission(node) == Allowance.ALLOWED; // TODO performance test with added isOp check
 	}
 
 	@Override
