@@ -4,7 +4,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.ulfric.andrew.Sender;
+import com.ulfric.etruscans.Messages;
 
+import java.util.Map;
 import java.util.UUID;
 
 public final class BukkitSender implements Sender {
@@ -35,7 +37,12 @@ public final class BukkitSender implements Sender {
 
 	@Override
 	public void sendMessage(String message) {
-		sender.sendMessage(message);
+		Messages.send(sender, message);
+	}
+
+	@Override
+	public void sendMessage(String message, Map<String, String> context) {
+		Messages.send(sender, message, context);
 	}
 
 	@Override
