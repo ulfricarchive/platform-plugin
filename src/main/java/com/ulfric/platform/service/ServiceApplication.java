@@ -1,5 +1,6 @@
 package com.ulfric.platform.service;
 
+import com.ulfric.commons.service.Service;
 import com.ulfric.dragoon.application.Application;
 
 import java.util.Objects;

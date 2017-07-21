@@ -2,6 +2,8 @@ package com.ulfric.platform.service;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+import com.ulfric.commons.service.Service;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
