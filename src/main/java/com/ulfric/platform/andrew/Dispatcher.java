@@ -5,9 +5,9 @@ import org.bukkit.command.CommandSender;
 import com.ulfric.andrew.Command;
 import com.ulfric.andrew.Context;
 import com.ulfric.andrew.Invoker;
-import com.ulfric.andrew.MissingArgumentException;
 import com.ulfric.andrew.MissingPermissionException;
 import com.ulfric.andrew.Sender;
+import com.ulfric.andrew.argument.MissingArgumentException;
 
 import java.util.Arrays;
 import java.util.Collections;

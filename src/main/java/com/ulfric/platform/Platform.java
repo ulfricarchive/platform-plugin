@@ -14,6 +14,7 @@ import com.ulfric.etruscans.locale.LocaleContainer;
 import com.ulfric.etruscans.placeholder.PlaceholderFeature;
 import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
+import com.ulfric.platform.andrew.ResolverFeature;
 import com.ulfric.platform.listener.ListenerFeature;
 import com.ulfric.platform.service.ServiceFeature;
 
@@ -35,6 +36,7 @@ public final class Platform extends Plugin {
 	private Feature command;
 	private Feature listener;
 	private Feature service;
+	private Feature resolver;
 	private Feature placeholder;
 
 	public Platform() {
@@ -64,12 +66,16 @@ public final class Platform extends Plugin {
 		if (service == null) {
 			service = Plugin.FACTORY.request(ServiceFeature.class);
 		}
+		if (resolver == null) {
+			resolver = Plugin.FACTORY.request(ResolverFeature.class);
+		}
 		if (placeholder == null) {
 			placeholder = Plugin.FACTORY.request(PlaceholderFeature.class);
 		}
 		Feature.register(command);
 		Feature.register(listener);
 		Feature.register(service);
+		Feature.register(resolver);
 		Feature.register(placeholder);
 	}
 
