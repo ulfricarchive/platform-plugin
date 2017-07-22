@@ -3,12 +3,14 @@ package com.ulfric.platform.andrew;
 import org.bukkit.command.CommandSender;
 
 import com.ulfric.andrew.Command;
-import com.ulfric.andrew.CommandException;
 import com.ulfric.andrew.Context;
 import com.ulfric.andrew.Invoker;
+import com.ulfric.andrew.MissingArgumentException;
+import com.ulfric.andrew.MissingPermissionException;
 import com.ulfric.andrew.Sender;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +23,7 @@ import java.util.stream.Collectors;
 
 final class Dispatcher extends org.bukkit.command.Command {
 
-	private static final Executor EXECUTOR = Executors.newFixedThreadPool(2);
+	private static final Executor EXECUTOR = Executors.newFixedThreadPool(3);
 	private static final ConcurrentMap<UUID, Context> CURRENTLY_EXECUTING = new ConcurrentHashMap<>();
 
 	private final CommandRegistry registry;
@@ -69,9 +71,12 @@ final class Dispatcher extends org.bukkit.command.Command {
 	private void run(Context context) {
 		try {
 			registry.dispatch(context);
-		} catch (CommandException thatsOk) {
-			// TODO handle properly
-			context.getSender().sendMessage(thatsOk.getMessage());
+		} catch (MissingPermissionException permissionCheck) {
+			context.getSender().sendMessage("command-no-permission",
+					Collections.singletonMap("node", permissionCheck.getMessage()));
+		} catch (MissingArgumentException requiredArgument) {
+			context.getSender().sendMessage("command-missing-argument",
+					Collections.singletonMap("argument", requiredArgument.getMessage()));
 		} catch (Exception exception) {
 			// TODO auto report this to admins
 			exception.printStackTrace(); // TODO improve logging
