@@ -1,4 +1,5 @@
 name: Platform
 main: com.ulfric.platform.Platform
 version: 1.0.0
+author: Ulfric Projects
 load: STARTUP
