@@ -96,6 +96,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.ulfric.servix</groupId>
+			<artifactId>servix</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>com.ulfric.botch</groupId>
 			<artifactId>botch</artifactId>
 			<version>1.0.0</version>

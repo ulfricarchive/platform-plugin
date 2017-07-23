@@ -16,7 +16,7 @@ import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
 import com.ulfric.platform.andrew.ResolverFeature;
 import com.ulfric.platform.listener.ListenerFeature;
-import com.ulfric.platform.service.ServiceFeature;
+import com.ulfric.servix.ServiceFeature;
 
 import java.util.Arrays;
 import java.util.List;
