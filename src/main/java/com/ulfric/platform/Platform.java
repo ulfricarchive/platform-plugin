@@ -12,6 +12,7 @@ import com.ulfric.dragoon.ObjectFactory;
 import com.ulfric.dragoon.application.Feature;
 import com.ulfric.etruscans.locale.LocaleContainer;
 import com.ulfric.etruscans.placeholder.PlaceholderFeature;
+import com.ulfric.palpatine.Scheduler;
 import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
 import com.ulfric.platform.andrew.ResolverFeature;
@@ -40,6 +41,8 @@ public final class Platform extends Plugin {
 		factory.bind(JavaPlugin.class).toFunction(Platform::getProvidingPlugin);
 		factory.bind(Registry.class).toValue(factory.request(CommandRegistry.class));
 		factory.bind(PluginManager.class).toFunction(ignore -> Bukkit.getPluginManager());
+		factory.bind(Scheduler.class).toFunction(parameters -> new Scheduler(getProvidingPlugin(parameters)));
+
 		factory.install(SettingsExtension.class);
 		factory.install(DatabaseExtension.class);
 
