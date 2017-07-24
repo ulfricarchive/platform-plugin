@@ -33,12 +33,6 @@ public final class Platform extends Plugin {
 		throw new IllegalStateException("Plugin could not be injected from: " + Arrays.toString(parameters));
 	}
 
-	private Feature command;
-	private Feature listener;
-	private Feature service;
-	private Feature resolver;
-	private Feature placeholder;
-
 	public Platform() {
 		ObjectFactory factory = Plugin.FACTORY;
 		factory.bind(Plugin.class).toFunction(Platform::getProvidingPlugin);
@@ -49,41 +43,17 @@ public final class Platform extends Plugin {
 		factory.install(SettingsExtension.class);
 		factory.install(DatabaseExtension.class);
 
-		addBootHook(this::registerFeatures);
-		addShutdownHook(this::unregisterFeatures);
-		addShutdownHook(this::saveDatabases);
+		Feature.register(new FeatureFeature()); // TODO unregister
+		install(CommandFeature.class);
+		install(ListenerFeature.class);
+		install(ServiceFeature.class);
+		install(ResolverFeature.class);
+		install(PlaceholderFeature.class);
 
 		install(LocaleContainer.class);
-	}
 
-	private void registerFeatures() {
-		if (command == null) {
-			command = Plugin.FACTORY.request(CommandFeature.class);
-		}
-		if (listener == null) {
-			listener = Plugin.FACTORY.request(ListenerFeature.class);
-		}
-		if (service == null) {
-			service = Plugin.FACTORY.request(ServiceFeature.class);
-		}
-		if (resolver == null) {
-			resolver = Plugin.FACTORY.request(ResolverFeature.class);
-		}
-		if (placeholder == null) {
-			placeholder = Plugin.FACTORY.request(PlaceholderFeature.class);
-		}
-		Feature.register(command);
-		Feature.register(listener);
-		Feature.register(service);
-		Feature.register(resolver);
-		Feature.register(placeholder);
+		addShutdownHook(this::saveDatabases);
 	}
-
-	private void unregisterFeatures() {
-		Feature.disable(command);
-		Feature.disable(listener);
-	}
-
 	private void saveDatabases() {
 		List<Store> databases = Store.getDatabases();
 		log("Shutting down " + databases.size() + " databases");

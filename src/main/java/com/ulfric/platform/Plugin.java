@@ -4,7 +4,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ulfric.commons.reflect.FieldHelper;
 import com.ulfric.dragoon.ObjectFactory;
-import com.ulfric.dragoon.application.Application;
 import com.ulfric.dragoon.application.Container;
 import com.ulfric.dragoon.application.Hookable;
 import com.ulfric.dragoon.extension.Extensible;
@@ -13,7 +12,7 @@ import com.ulfric.tryto.Try;
 
 import java.lang.reflect.Field;
 
-public abstract class Plugin extends JavaPlugin implements Extensible<Class<? extends Application>>, Hookable {
+public abstract class Plugin extends JavaPlugin implements Extensible<Class<?>>, Hookable {
 
 	static final Class<?> LOADER_TYPE = Plugin.class.getClassLoader().getClass();
 	static final Field PLUGIN_FIELD = FieldHelper.getDeclaredField(LOADER_TYPE, "plugin")
@@ -59,7 +58,7 @@ public abstract class Plugin extends JavaPlugin implements Extensible<Class<? ex
 	private final Container container = FACTORY.request(PluginContainer.class, this);
 
 	@Override
-	public final Result install(Class<? extends Application> application) {
+	public final Result install(Class<?> application) {
 		return container.install(application);
 	}
 

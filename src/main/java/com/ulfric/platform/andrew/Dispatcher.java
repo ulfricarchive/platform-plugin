@@ -8,6 +8,7 @@ import com.ulfric.andrew.Invoker;
 import com.ulfric.andrew.MissingPermissionException;
 import com.ulfric.andrew.Sender;
 import com.ulfric.andrew.argument.MissingArgumentException;
+import com.ulfric.commons.collection.MapHelper;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,7 +16,6 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 final class Dispatcher extends org.bukkit.command.Command {
 
 	private static final Executor EXECUTOR = Executors.newFixedThreadPool(3);
-	private static final ConcurrentMap<UUID, Context> CURRENTLY_EXECUTING = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<UUID, Context> CURRENTLY_EXECUTING = MapHelper.newConcurrentMap(4);
 
 	private final CommandRegistry registry;
 	final Invoker command;
