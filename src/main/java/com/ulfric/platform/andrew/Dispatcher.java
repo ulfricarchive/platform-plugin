@@ -9,6 +9,7 @@ import com.ulfric.andrew.MissingPermissionException;
 import com.ulfric.andrew.Sender;
 import com.ulfric.andrew.argument.MissingArgumentException;
 import com.ulfric.commons.collection.MapHelper;
+import com.ulfric.servix.services.locale.TellService;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,7 +43,7 @@ final class Dispatcher extends org.bukkit.command.Command {
 		if (uniqueId != null) {
 			Context existingExecution = CURRENTLY_EXECUTING.get(uniqueId);
 			if (existingExecution != null) {
-				andrewSender.sendMessage("command-already-running"); // TODO locale, qualify message with context label
+				TellService.sendMessage(andrewSender, "command-already-running"); // TODO qualify message with context label
 				return true; // TODO permission bypass
 			}
 		}
@@ -72,15 +73,15 @@ final class Dispatcher extends org.bukkit.command.Command {
 		try {
 			registry.dispatch(context);
 		} catch (MissingPermissionException permissionCheck) {
-			context.getSender().sendMessage("command-no-permission",
+			TellService.sendMessage(context.getSender(), "command-no-permission",
 					Collections.singletonMap("node", permissionCheck.getMessage()));
 		} catch (MissingArgumentException requiredArgument) {
-			context.getSender().sendMessage("command-missing-argument",
+			TellService.sendMessage(context.getSender(), "command-missing-argument",
 					Collections.singletonMap("argument", requiredArgument.getMessage()));
 		} catch (Exception exception) {
 			// TODO auto report this to admins
 			exception.printStackTrace(); // TODO improve logging
-			context.getSender().sendMessage("command-failed-execution"); // TODO locale
+			TellService.sendMessage(context.getSender(), "command-failed-execution");
 		}
 	}
 
