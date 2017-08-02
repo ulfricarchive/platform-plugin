@@ -46,14 +46,14 @@ public final class Platform extends Plugin {
 		factory.install(SettingsExtension.class);
 		factory.install(DatabaseExtension.class);
 
+		install(LocaleContainer.class);
+
 		Feature.register(new FeatureFeature()); // TODO unregister
 		install(CommandFeature.class);
 		install(ListenerFeature.class);
 		install(ServiceFeature.class);
 		install(ResolverFeature.class);
 		install(PlaceholderFeature.class);
-
-		install(LocaleContainer.class);
 
 		addShutdownHook(this::saveDatabases);
 	}
