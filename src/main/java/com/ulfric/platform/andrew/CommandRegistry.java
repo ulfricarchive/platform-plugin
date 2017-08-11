@@ -9,7 +9,7 @@ import com.ulfric.andrew.Invoker;
 import com.ulfric.andrew.SkeletalRegistry;
 import com.ulfric.commons.reflect.FieldHelper;
 import com.ulfric.dragoon.reflect.Classes;
-import com.ulfric.tryto.Try;
+import com.ulfric.tryto.TryTo;
 
 import java.lang.reflect.Field;
 import java.util.Objects;
@@ -27,7 +27,7 @@ public class CommandRegistry extends SkeletalRegistry {
 				.orElseThrow(NullPointerException::new);
 		field.setAccessible(true);
 
-		return (CommandMap) Try.toGet(() -> field.get(Bukkit.getPluginManager()));
+		return (CommandMap) TryTo.get(() -> field.get(Bukkit.getPluginManager()));
 	}
 
 	@Override

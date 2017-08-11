@@ -8,7 +8,7 @@ import com.ulfric.dragoon.application.Container;
 import com.ulfric.dragoon.application.Hookable;
 import com.ulfric.dragoon.extension.Extensible;
 import com.ulfric.dragoon.value.Result;
-import com.ulfric.tryto.Try;
+import com.ulfric.tryto.TryTo;
 
 import java.lang.reflect.Field;
 
@@ -40,7 +40,7 @@ public abstract class Plugin extends JavaPlugin implements Extensible<Class<?>>,
 		}
 
 		if (LOADER_TYPE.isInstance(loader)) {
-			Object plugin = Try.toGet(() -> PLUGIN_FIELD.get(loader));
+			Object plugin = TryTo.get(() -> PLUGIN_FIELD.get(loader));
 			if (plugin instanceof Plugin) {
 				return (Plugin) plugin;
 			}

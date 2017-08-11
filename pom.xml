@@ -53,8 +53,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.ulfric.try</groupId>
-			<artifactId>try</artifactId>
+			<groupId>com.ulfric.tryto</groupId>
+			<artifactId>tryto</artifactId>
 			<version>1.0.0</version>
 			<scope>compile</scope>
 		</dependency>
