@@ -1,15 +1,12 @@
 package com.ulfric.platform.andrew;
 
 import org.junit.jupiter.api.Test;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
 import org.bukkit.command.CommandSender;
 
 import com.google.common.truth.Truth;
 
-@RunWith(JUnitPlatform.class)
 class BukkitSenderTest {
 
 	@Test
