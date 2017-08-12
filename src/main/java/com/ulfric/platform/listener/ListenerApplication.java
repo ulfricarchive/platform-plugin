@@ -8,7 +8,7 @@ import org.bukkit.plugin.PluginManager;
 import com.ulfric.dragoon.application.Application;
 import com.ulfric.dragoon.extension.inject.Inject;
 import com.ulfric.platform.Platform;
-import com.ulfric.platform.Plugin;
+import com.ulfric.plugin.Plugin;
 
 import java.util.Objects;
 

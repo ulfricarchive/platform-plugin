@@ -17,6 +17,8 @@ import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
 import com.ulfric.platform.andrew.ResolverFeature;
 import com.ulfric.platform.listener.ListenerFeature;
+import com.ulfric.plugin.FeatureFeature;
+import com.ulfric.plugin.Plugin;
 import com.ulfric.servix.ServiceFeature;
 
 import java.util.Arrays;
@@ -57,8 +59,13 @@ public final class Platform extends Plugin {
 
 		addShutdownHook(this::saveDatabases);
 	}
+
 	private void saveDatabases() {
 		List<Store> databases = Store.getDatabases();
+		if (databases.isEmpty()) {
+			return;
+		}
+
 		log("Shutting down " + databases.size() + " databases");
 		long start = System.currentTimeMillis();
 		databases.forEach(Store::save);

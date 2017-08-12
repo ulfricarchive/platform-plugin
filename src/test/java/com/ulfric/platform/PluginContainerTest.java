@@ -6,6 +6,8 @@ import com.google.common.truth.Truth;
 
 import com.ulfric.botch.Botch;
 import com.ulfric.dragoon.application.Container;
+import com.ulfric.plugin.Plugin;
+import com.ulfric.plugin.PluginContainer;
 
 class PluginContainerTest extends Botch<Plugin> {
 

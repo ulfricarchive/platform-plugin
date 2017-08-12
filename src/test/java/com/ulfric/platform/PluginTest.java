@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import com.ulfric.botch.Botch;
 import com.ulfric.platform.PluginTest.TestPlugin;
+import com.ulfric.plugin.Plugin;
 
 class PluginTest extends Botch<TestPlugin> {
 
