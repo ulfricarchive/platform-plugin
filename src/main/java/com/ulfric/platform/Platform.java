@@ -15,6 +15,7 @@ import com.ulfric.etruscans.placeholder.PlaceholderFeature;
 import com.ulfric.palpatine.Scheduler;
 import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
+import com.ulfric.platform.andrew.PlayerResolver;
 import com.ulfric.platform.andrew.ResolverFeature;
 import com.ulfric.platform.listener.ListenerFeature;
 import com.ulfric.plugin.FeatureFeature;
@@ -49,6 +50,7 @@ public final class Platform extends Plugin {
 		factory.install(DatabaseExtension.class);
 
 		install(LocaleContainer.class);
+		install(PlayerResolver.class);
 
 		Feature.register(new FeatureFeature()); // TODO unregister
 		install(CommandFeature.class);
