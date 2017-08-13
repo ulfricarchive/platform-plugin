@@ -10,6 +10,7 @@ import com.ulfric.data.database.DatabaseExtension;
 import com.ulfric.data.database.Store;
 import com.ulfric.dragoon.ObjectFactory;
 import com.ulfric.dragoon.application.Feature;
+import com.ulfric.dragoon.logging.DefaultLoggerBinding;
 import com.ulfric.etruscans.locale.LocaleContainer;
 import com.ulfric.etruscans.placeholder.PlaceholderFeature;
 import com.ulfric.palpatine.Scheduler;
@@ -24,6 +25,7 @@ import com.ulfric.servix.ServiceFeature;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 public final class Platform extends Plugin {
 
@@ -45,6 +47,13 @@ public final class Platform extends Plugin {
 		factory.bind(Registry.class).toValue(factory.request(CommandRegistry.class));
 		factory.bind(PluginManager.class).toFunction(ignore -> Bukkit.getPluginManager());
 		factory.bind(Scheduler.class).toFunction(parameters -> new Scheduler(getProvidingPlugin(parameters)));
+		factory.bind(Logger.class).toFunction(parameters -> {
+			try {
+				return getProvidingPlugin(parameters).getLogger();
+			} catch (IllegalStateException thatsOk) {
+				return DefaultLoggerBinding.INSTANCE.apply(parameters);
+			}
+		});
 
 		factory.install(SettingsExtension.class);
 		factory.install(DatabaseExtension.class);
