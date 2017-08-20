@@ -4,9 +4,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.ulfric.andrew.Sender;
-import com.ulfric.etruscans.Messages;
+import com.ulfric.i18n.content.Details;
+import com.ulfric.servix.services.locale.TellService;
 
-import java.util.Map;
 import java.util.UUID;
 
 public final class BukkitSender implements Sender {
@@ -37,12 +37,12 @@ public final class BukkitSender implements Sender {
 
 	@Override
 	public void sendMessage(String message) {
-		Messages.send(sender, message);
+		TellService.sendMessage(sender, message);
 	}
 
 	@Override
-	public void sendMessage(String message, Map<String, String> context) {
-		Messages.send(sender, message, context);
+	public void sendMessage(String message, Details context) {
+		TellService.sendMessage(sender, message, context);
 	}
 
 	@Override

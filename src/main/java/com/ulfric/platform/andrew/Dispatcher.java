@@ -9,10 +9,10 @@ import com.ulfric.andrew.MissingPermissionException;
 import com.ulfric.andrew.Sender;
 import com.ulfric.andrew.argument.MissingArgumentException;
 import com.ulfric.commons.collection.MapHelper;
+import com.ulfric.i18n.content.Details;
 import com.ulfric.servix.services.locale.TellService;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,10 +74,10 @@ final class Dispatcher extends org.bukkit.command.Command {
 			registry.dispatch(context);
 		} catch (MissingPermissionException permissionCheck) {
 			TellService.sendMessage(context.getSender(), "command-no-permission",
-					Collections.singletonMap("node", permissionCheck.getMessage()));
+					Details.of("node", permissionCheck.getMessage()));
 		} catch (MissingArgumentException requiredArgument) {
 			TellService.sendMessage(context.getSender(), "command-missing-argument",
-					Collections.singletonMap("argument", requiredArgument.getMessage()));
+					Details.of("argument", requiredArgument.getMessage()));
 		} catch (Exception exception) {
 			// TODO auto report this to admins
 			exception.printStackTrace(); // TODO improve logging

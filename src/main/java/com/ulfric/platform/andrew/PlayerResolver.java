@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import com.ulfric.andrew.argument.Exact;
 import com.ulfric.andrew.argument.ResolutionRequest;
 import com.ulfric.andrew.argument.Resolver;
+import com.ulfric.commons.spigot.player.PlayerHelper;
 import com.ulfric.commons.value.UniqueIdHelper;
 
 import java.util.UUID;
@@ -33,7 +34,7 @@ public class PlayerResolver extends Resolver<Player> {
 		}
 
 		if (player == null) {
-			if (isSelf(argument)) {
+			if (PlayerHelper.isAskingForSelf(argument)) {
 				player = self(request);
 			}
 		} else {
@@ -45,19 +46,6 @@ public class PlayerResolver extends Resolver<Player> {
 		}
 
 		return player;
-	}
-
-	private boolean isSelf(String argument) {
-		argument = argument.toLowerCase();
-
-		return argument.equals("me") ||
-				argument.equals("myself") ||
-				argument.equals("self") ||
-				isVanillaSelfSelector(argument);
-	}
-
-	private boolean isVanillaSelfSelector(String argument) {
-		return argument.equals("@p") || argument.equals("@e");
 	}
 
 	private Player self(ResolutionRequest request) {
