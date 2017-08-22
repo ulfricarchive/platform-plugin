@@ -6,9 +6,9 @@ import com.ulfric.andrew.Command;
 import com.ulfric.andrew.Context;
 import com.ulfric.andrew.Invoker;
 import com.ulfric.andrew.MissingPermissionException;
-import com.ulfric.andrew.Sender;
 import com.ulfric.andrew.argument.MissingArgumentException;
 import com.ulfric.commons.collection.MapHelper;
+import com.ulfric.commons.spigot.command.CommandSenderHelper;
 import com.ulfric.i18n.content.Details;
 import com.ulfric.servix.services.locale.TellService;
 
@@ -38,12 +38,11 @@ final class Dispatcher extends org.bukkit.command.Command {
 
 	@Override
 	public boolean execute(CommandSender sender, String label, String[] arguments) {
-		Sender andrewSender = new BukkitSender(sender);
-		UUID uniqueId = andrewSender.getUniqueId();
+		UUID uniqueId = CommandSenderHelper.getUniqueId(sender);
 		if (uniqueId != null) {
 			Context existingExecution = CURRENTLY_EXECUTING.get(uniqueId);
 			if (existingExecution != null) {
-				TellService.sendMessage(andrewSender, "command-already-running"); // TODO qualify message with context label
+				TellService.sendMessage(sender, "command-already-running"); // TODO qualify message with context label
 				return true; // TODO permission bypass
 			}
 		}
@@ -53,7 +52,7 @@ final class Dispatcher extends org.bukkit.command.Command {
 		List<String> enteredArguments = Arrays.stream(arguments).collect(Collectors.toList()); // TODO handle "quoted arguments"
 		contextArgumens.put(Command.class, enteredArguments);
 		context.setArguments(contextArgumens);
-		context.setSender(new BukkitSender(sender));
+		context.setSender(sender);
 		context.setLabel(label);
 
 		if (command.shouldRunOnMainThread()) {

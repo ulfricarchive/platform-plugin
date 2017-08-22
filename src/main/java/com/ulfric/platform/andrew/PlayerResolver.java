@@ -1,6 +1,7 @@
 package com.ulfric.platform.andrew;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.ulfric.andrew.argument.Exact;
@@ -49,9 +50,9 @@ public class PlayerResolver extends Resolver<Player> {
 	}
 
 	private Player self(ResolutionRequest request) {
-		Object handle = request.getContext().getSender().handle();
+		CommandSender sender = request.getContext().getSender();
 
-		return handle instanceof Player ? (Player) handle : null;
+		return sender instanceof Player ? (Player) sender : null;
 	}
 
 }
