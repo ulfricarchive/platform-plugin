@@ -40,6 +40,22 @@ public final class Platform extends Plugin {
 	}
 
 	public Platform() {
+		setupFactory();
+
+		Feature.register(new FeatureFeature()); // TODO unregister on shutdown
+		install(CommandFeature.class);
+		install(ListenerFeature.class);
+		install(ServiceFeature.class);
+		install(ResolverFeature.class);
+		install(PlaceholderFeature.class);
+
+		install(LocaleContainer.class);
+		install(PlayerResolver.class);
+
+		addShutdownHook(this::saveDatabases);
+	}
+
+	private void setupFactory() {
 		ObjectFactory factory = Plugin.FACTORY;
 		factory.bind(Plugin.class).toFunction(Platform::getProvidingPlugin);
 		factory.bind(org.bukkit.plugin.Plugin.class).toFunction(Platform::getProvidingPlugin);
@@ -57,18 +73,6 @@ public final class Platform extends Plugin {
 
 		factory.install(SettingsExtension.class);
 		factory.install(DatabaseExtension.class);
-
-		install(LocaleContainer.class);
-		install(PlayerResolver.class);
-
-		Feature.register(new FeatureFeature()); // TODO unregister
-		install(CommandFeature.class);
-		install(ListenerFeature.class);
-		install(ServiceFeature.class);
-		install(ResolverFeature.class);
-		install(PlaceholderFeature.class);
-
-		addShutdownHook(this::saveDatabases);
 	}
 
 	private void saveDatabases() {
