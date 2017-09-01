@@ -18,7 +18,7 @@ class PluginContainerTest extends Botch<Plugin> {
 	@Test
 	void testGetNameDelegates() {
 		Container container = new PluginContainer(plugin);
-		Truth.assertThat(container.getName()).isEqualTo(plugin.getName());
+		Truth.assertThat(container.getName()).isEqualTo(plugin.getName().toLowerCase());
 	}
 
 }
