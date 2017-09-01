@@ -39,8 +39,8 @@ final class Dispatcher extends org.bukkit.command.Command {
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String label, String[] arguments) { // TODO cleanup method
-		if (!command.shouldBypassRunningCommand()) { // TODO permission bypass
+	public boolean execute(CommandSender sender, String label, String[] arguments) {
+		if (!command.shouldBypassRunningCommand()) {
 			Context existingExecution = getRunningCommand(sender);
 			if (existingExecution != null) {
 				TellService.sendMessage(sender, "command-already-running", Details.of("running", existingExecution));
@@ -53,7 +53,7 @@ final class Dispatcher extends org.bukkit.command.Command {
 		if (command.shouldRunOnMainThread()) {
 			this.run(context);
 		} else {
-			this.runAsync(context); // TODO timeouts, handle InterruptedException
+			this.runAsync(context);
 		}
 
 		return true;
@@ -102,9 +102,8 @@ final class Dispatcher extends org.bukkit.command.Command {
 			TellService.sendMessage(context.getSender(), "command-missing-argument",
 					Details.of("argument", requiredArgument.getMessage()));
 		} catch (Exception exception) {
-			// TODO auto report this to admins
-			exception.printStackTrace(); // TODO improve logging
 			TellService.sendMessage(context.getSender(), "command-failed-execution");
+			throw new CommandExecutionException(exception);
 		}
 	}
 

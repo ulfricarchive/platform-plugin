@@ -5,6 +5,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ulfric.andrew.Registry;
+import com.ulfric.andrew.dragoon.ResolverFeature;
 import com.ulfric.data.config.SettingsExtension;
 import com.ulfric.data.database.DatabaseExtension;
 import com.ulfric.data.database.Store;
@@ -17,7 +18,6 @@ import com.ulfric.palpatine.Scheduler;
 import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
 import com.ulfric.platform.andrew.PlayerResolver;
-import com.ulfric.platform.andrew.ResolverFeature;
 import com.ulfric.platform.listener.ListenerFeature;
 import com.ulfric.plugin.FeatureFeature;
 import com.ulfric.plugin.Plugin;

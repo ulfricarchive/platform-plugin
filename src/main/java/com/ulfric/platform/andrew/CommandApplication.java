@@ -20,7 +20,7 @@ public class CommandApplication extends Application {
 		Objects.requireNonNull(command, "command");
 
 		@SuppressWarnings("unchecked")
-		Class<? extends Command> commandType = (Class<? extends Command>) Classes.getNonDynamic(command.getClass()); // TODO is dynamic stripping necessary?
+		Class<? extends Command> commandType = (Class<? extends Command>) Classes.getNonDynamic(command.getClass());
 		this.command = Invoker.of(commandType);
 
 		addBootHook(this::register);
