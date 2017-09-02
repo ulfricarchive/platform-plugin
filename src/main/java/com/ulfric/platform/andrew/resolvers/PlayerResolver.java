@@ -1,4 +1,4 @@
-package com.ulfric.platform.andrew;
+package com.ulfric.platform.andrew.resolvers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

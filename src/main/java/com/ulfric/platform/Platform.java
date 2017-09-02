@@ -17,7 +17,7 @@ import com.ulfric.etruscans.placeholder.PlaceholderFeature;
 import com.ulfric.palpatine.Scheduler;
 import com.ulfric.platform.andrew.CommandFeature;
 import com.ulfric.platform.andrew.CommandRegistry;
-import com.ulfric.platform.andrew.PlayerResolver;
+import com.ulfric.platform.andrew.resolvers.BukkitResolversContainer;
 import com.ulfric.platform.listener.ListenerFeature;
 import com.ulfric.plugin.FeatureFeature;
 import com.ulfric.plugin.Plugin;
@@ -50,7 +50,7 @@ public final class Platform extends Plugin {
 		install(PlaceholderFeature.class);
 
 		install(LocaleContainer.class);
-		install(PlayerResolver.class);
+		install(BukkitResolversContainer.class);
 
 		addShutdownHook(this::saveDatabases);
 	}
