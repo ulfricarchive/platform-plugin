@@ -9,6 +9,7 @@ import com.ulfric.andrew.Context;
 import com.ulfric.andrew.Invoker;
 import com.ulfric.andrew.Labels;
 import com.ulfric.andrew.MissingPermissionException;
+import com.ulfric.andrew.MustBePlayerException;
 import com.ulfric.andrew.argument.MissingArgumentException;
 import com.ulfric.commons.collection.MapHelper;
 import com.ulfric.commons.spigot.command.CommandSenderHelper;
@@ -17,6 +18,7 @@ import com.ulfric.i18n.content.Details;
 import com.ulfric.servix.services.locale.TellService;
 
 import java.util.Arrays;
+import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Executor;
@@ -71,9 +73,20 @@ final class Dispatcher extends org.bukkit.command.Command {
 		Context context = new Context();
 		context.setCreation(TemporalHelper.instantNow());
 		context.setSender(sender);
+		context.setCommand(command);
+		context.setCommandLine(recreateCommandLine(label, arguments));
 		addArguments(context, arguments);
 		addLabel(context, label);
 		return context;
+	}
+
+	private String recreateCommandLine(String label, String[] arguments) {
+		StringJoiner joiner = new StringJoiner(" ");
+		joiner.add(label);
+		for (String argument : arguments) {
+			joiner.add(argument);
+		}
+		return joiner.toString();
 	}
 
 	private void addArguments(Context context, String[] enteredArguments) {
@@ -101,6 +114,9 @@ final class Dispatcher extends org.bukkit.command.Command {
 		} catch (MissingArgumentException requiredArgument) {
 			TellService.sendMessage(context.getSender(), "command-missing-argument",
 					Details.of("argument", requiredArgument.getMessage()));
+		} catch (MustBePlayerException mustBePlayer) {
+			TellService.sendMessage(context.getSender(), "command-must-be-player",
+					Details.of("sender", mustBePlayer.getMessage()));
 		} catch (Exception exception) {
 			TellService.sendMessage(context.getSender(), "command-failed-execution");
 			throw new CommandExecutionException(exception);

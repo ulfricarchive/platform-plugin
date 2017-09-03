@@ -5,10 +5,12 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.SimplePluginManager;
 
 import com.ulfric.andrew.Command;
+import com.ulfric.andrew.Context;
 import com.ulfric.andrew.Invoker;
 import com.ulfric.andrew.SkeletalRegistry;
 import com.ulfric.commons.reflect.FieldHelper;
 import com.ulfric.dragoon.reflect.Classes;
+import com.ulfric.platform.andrew.security.CommandDispatchAuditEvent;
 import com.ulfric.tryto.TryTo;
 
 import java.lang.reflect.Field;
@@ -77,6 +79,12 @@ public class CommandRegistry extends SkeletalRegistry {
 		@SuppressWarnings("unchecked")
 		Class<? extends Command> type = (Class<? extends Command>) Classes.getNonDynamic(command.getClass());
 		return Invoker.of(type);
+	}
+
+	@Override
+	public void dispatch(Context context) {
+		new CommandDispatchAuditEvent(context).callAuditEvent();
+		super.dispatch(context);
 	}
 
 }
