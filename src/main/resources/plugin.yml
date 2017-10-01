@@ -1,5 +1,5 @@
 name: Platform
-main: com.ulfric.platform.Platform
+main: com.ulfric.plugin.platform.PlatformPlugin
 version: 1.0.0
-author: Ulfric Projects
+author: Ulfric LLC
 load: STARTUP

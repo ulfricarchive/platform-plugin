@@ -6,12 +6,12 @@
 
 	<parent>
 		<groupId>com.ulfric.parent</groupId>
-		<artifactId>minecraft</artifactId>
+		<artifactId>bukkit-plugin</artifactId>
 		<version>1.0.0</version>
 	</parent>
 
-	<groupId>com.ulfric.platform</groupId>
-	<artifactId>platform</artifactId>
+	<groupId>com.ulfric.plugin</groupId>
+	<artifactId>platform-plugin</artifactId>
 	<version>1.0.0</version>
 
 	<build>
@@ -39,101 +39,15 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.ulfric.dragoon</groupId>
-			<artifactId>dragoon</artifactId>
-			<version>2.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>com.ulfric.commons</groupId>
 			<artifactId>commons</artifactId>
 			<version>1.0.0</version>
-			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.ulfric.commons</groupId>
-			<artifactId>commons-spigot</artifactId>
+			<artifactId>commons-bukkit</artifactId>
 			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.tryto</groupId>
-			<artifactId>tryto</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.rules</groupId>
-			<artifactId>rules</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.andrew</groupId>
-			<artifactId>andrew</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.data</groupId>
-			<artifactId>data</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.embargo</groupId>
-			<artifactId>embargo</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.servix</groupId>
-			<artifactId>servix</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.palpatine</groupId>
-			<artifactId>palpatine</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.etruscans</groupId>
-			<artifactId>etruscans</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.monty</groupId>
-			<artifactId>monty</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.plugin</groupId>
-			<artifactId>plugin</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ulfric.botch</groupId>
-			<artifactId>botch</artifactId>
-			<version>1.0.0</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

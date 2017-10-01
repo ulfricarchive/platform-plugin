@@ -1,4 +1,4 @@
-package com.ulfric.platform.listener;
+package com.ulfric.plugin.platform.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -7,8 +7,8 @@ import org.bukkit.plugin.PluginManager;
 
 import com.ulfric.dragoon.application.Application;
 import com.ulfric.dragoon.extension.inject.Inject;
-import com.ulfric.platform.Platform;
 import com.ulfric.plugin.Plugin;
+import com.ulfric.plugin.platform.PlatformPlugin;
 
 import java.util.Objects;
 
@@ -31,7 +31,7 @@ public class ListenerApplication extends Application {
 	private void register() {
 		Plugin plugin = Plugin.getProvidingPlugin(listener.getClass());
 		if (plugin == null) {
-			plugin = Plugin.getPluginInstance(Platform.class);
+			plugin = Plugin.getPluginInstance(PlatformPlugin.class);
 		}
 		Bukkit.getPluginManager().registerEvents(listener, plugin);
 	}
