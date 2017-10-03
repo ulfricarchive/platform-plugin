@@ -14,40 +14,30 @@
 	<artifactId>platform-plugin</artifactId>
 	<version>1.0.0</version>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<createDependencyReducedPom>false</createDependencyReducedPom>
-					<createSourcesJar>false</createSourcesJar>
-					<minimizeJar>false</minimizeJar>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<properties>
+		<shadingManagerScope>compile</shadingManagerScope>
+	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.ulfric.commons</groupId>
 			<artifactId>commons</artifactId>
 			<version>1.0.0</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.ulfric.commons</groupId>
 			<artifactId>commons-bukkit</artifactId>
 			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ulfric.plugin</groupId>
+			<artifactId>plugin</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 

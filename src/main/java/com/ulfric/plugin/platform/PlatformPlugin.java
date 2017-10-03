@@ -2,12 +2,12 @@ package com.ulfric.plugin.platform;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.ScoreboardManager;
 
-import com.ulfric.commons.bukkit.plugin.PluginHelper;
-import com.ulfric.dragoon.logging.DefaultLoggerBinding;
 import com.ulfric.plugin.Plugin;
 import com.ulfric.plugin.platform.listener.ListenerFeature;
+import com.ulfric.plugin.platform.logging.LoggerBinding;
 
 import java.util.logging.Logger;
 
@@ -31,23 +31,18 @@ public final class PlatformPlugin extends Plugin {
 	}
 
 	private void bindBukkitPlugin() {
-		FACTORY.bind(org.bukkit.plugin.Plugin.class).toFunction(parameters ->
-			PluginHelper.getProvidingPlugin(parameters.getHolder()));
+		bindBukkitPlugin(org.bukkit.plugin.Plugin.class);
+		bindBukkitPlugin(JavaPlugin.class);
+		bindBukkitPlugin(Plugin.class);
+	}
+
+	private void bindBukkitPlugin(Class<? extends org.bukkit.plugin.Plugin> type) {
+		FACTORY.bind(type).toFunction(parameters -> Plugin.getProvidingPlugin(parameters.getHolder()));
 	}
 
 	private void bindLogger() {
-		FACTORY.bind(Logger.class).toFunction(parameters -> {
-			try {
-				org.bukkit.plugin.Plugin plugin = FACTORY.request(org.bukkit.plugin.Plugin.class, parameters);
-
-				if (plugin != null) {
-					return plugin.getLogger();
-				}
-			} catch (IllegalStateException thatsOk) {
-			}
-
-			return DefaultLoggerBinding.INSTANCE.apply(parameters);
-		});
+		LoggerBinding binding = FACTORY.request(LoggerBinding.class);
+		FACTORY.bind(Logger.class).toFunction(binding);
 	}
 
 }
