@@ -9,6 +9,7 @@ import com.ulfric.plugin.Plugin;
 import com.ulfric.plugin.platform.listener.ListenerFeature;
 import com.ulfric.plugin.platform.logging.LoggerBinding;
 
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 public final class PlatformPlugin extends Plugin {
@@ -23,6 +24,7 @@ public final class PlatformPlugin extends Plugin {
 		bindBukkitManagers();
 		bindBukkitPlugin();
 		bindLogger();
+		bindDataFolder();
 	}
 
 	private void bindBukkitManagers() {
@@ -43,6 +45,10 @@ public final class PlatformPlugin extends Plugin {
 	private void bindLogger() {
 		LoggerBinding binding = FACTORY.request(LoggerBinding.class);
 		FACTORY.bind(Logger.class).toFunction(binding);
+	}
+
+	private void bindDataFolder() {
+		FACTORY.bind(Path.class).toFunction(parameters -> Plugin.getProvidingPlugin(parameters.getHolder()).getDataFolder());
 	}
 
 }
