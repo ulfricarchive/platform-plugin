@@ -1,6 +1,10 @@
 package com.ulfric.plugin.platform;
 
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
+import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.ScoreboardManager;
@@ -8,9 +12,6 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import com.ulfric.plugin.Plugin;
 import com.ulfric.plugin.platform.listener.ListenerFeature;
 import com.ulfric.plugin.platform.logging.LoggerBinding;
-
-import java.nio.file.Path;
-import java.util.logging.Logger;
 
 public final class PlatformPlugin extends Plugin {
 
@@ -28,6 +29,7 @@ public final class PlatformPlugin extends Plugin {
 	}
 
 	private void bindBukkitManagers() {
+		FACTORY.bind(Server.class).toSupplier(Bukkit::getServer);
 		FACTORY.bind(PluginManager.class).toSupplier(Bukkit::getPluginManager);
 		FACTORY.bind(ScoreboardManager.class).toSupplier(Bukkit::getScoreboardManager);
 	}
