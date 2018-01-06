@@ -20,15 +20,13 @@ public class LoggerBinding implements Function<Parameters, Logger> {
 
 	@Override
 	public Logger apply(Parameters parameters) {
-		try {
-			org.bukkit.plugin.Plugin plugin = factory.request(org.bukkit.plugin.Plugin.class, parameters);
+		org.bukkit.plugin.Plugin plugin = factory.request(org.bukkit.plugin.Plugin.class, parameters);
 
-			if (plugin != null) {
-				return plugin.getLogger();
-			}
-		} catch (IllegalArgumentException thatsOk) {
-			formerLogger.log(Level.SEVERE, "Falling back to default logger binding", thatsOk);
+		if (plugin != null) {
+			return plugin.getLogger();
 		}
+
+		formerLogger.log(Level.INFO, "Falling back to default logger binding for {0}", parameters.getQualifier());
 
 		return DefaultLoggerBinding.INSTANCE.apply(parameters);
 	}
